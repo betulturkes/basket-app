@@ -1,5 +1,5 @@
 import {useState, useSyncExternalStore} from "react";
-import { Container,SimpleGrid,List, ThemeIcon, Input, Button,Group,Drawer  } from '@mantine/core';
+import { Container,SimpleGrid,List, ThemeIcon, Input, Button,Group,Drawer,Indicator } from '@mantine/core';
 import { IconCircleCheck, IconCircleDashed } from '@tabler/icons-react';
 import './App.css';
 import Card from "./components/Card";
@@ -51,7 +51,9 @@ function App() {
       <Input value={searchValue} onChange = {(e) => setSearchValue(e.target.value)}/>
     </Input.Wrapper>
     <Button onClick={() => setSearchValue("")}>Temizle</Button>
-    <Button onClick={() => setOpened(true)}>Sepet</Button>
+    <Indicator color="red" label={basketItems.length} size={20}>
+      <Button onClick={() => setOpened(true)}>Sepet</Button>
+    </Indicator>
     </Group>
     <SimpleGrid cols={3} className= "Store">
       {filteredItems.map(({name, src}) =>{
