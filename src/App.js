@@ -1,5 +1,6 @@
 import {useState, useSyncExternalStore} from "react";
-import { Container,SimpleGrid,List, ThemeIcon, Input, Button,Group,Drawer,Indicator } from '@mantine/core';
+import { IconBasket } from '@tabler/icons-react';
+import { Container,SimpleGrid,List, ThemeIcon, Input, Button,Group,Drawer,Indicator} from '@mantine/core';
 import { IconCircleCheck, IconCircleDashed } from '@tabler/icons-react';
 import './App.css';
 import Card from "./components/Card";
@@ -52,7 +53,9 @@ function App() {
     </Input.Wrapper>
     <Button onClick={() => setSearchValue("")}>Temizle</Button>
     <Indicator color="red" label={basketItems.length} size={20}>
-      <Button onClick={() => setOpened(true)}>Sepet</Button>
+      <Button onClick={() => setOpened(true)}>
+      <IconBasket size={20}/>
+      </Button>
     </Indicator>
     </Group>
     <SimpleGrid cols={3} className= "Store">
