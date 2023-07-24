@@ -1,6 +1,6 @@
 import {useState, useSyncExternalStore} from "react";
 import { IconBasket } from '@tabler/icons-react';
-import { Container,SimpleGrid,List, ThemeIcon, Input, Button,Group,Drawer,Indicator} from '@mantine/core';
+import { Container,SimpleGrid,List, ThemeIcon, Input, Button,Group,Drawer,Indicator,Badge } from '@mantine/core';
 import { IconCircleCheck, IconCircleDashed } from '@tabler/icons-react';
 import './App.css';
 import Card from "./components/Card";
@@ -44,6 +44,9 @@ function App() {
   let [basketItems,setBasketItems] = useState([]);
   let [searchValue, setSearchValue] = useState(""); 
   let filteredItems = storeItems.filter((item) => item.name.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0);
+  let addToBasket = ({name}) => {
+    setBasketItems([...basketItems, {name, count: 1}])
+  }
 
   return (
 <Container className="App">
@@ -61,7 +64,7 @@ function App() {
     <SimpleGrid cols={3} className= "Store">
       {filteredItems.map(({name, src}) =>{
         return <Card key={name} name={name} src={src} 
-        onAdd={() =>setBasketItems([...basketItems, {name}])}
+        onAdd={() => addToBasket({name})}
         />;
       })}
     </SimpleGrid >
@@ -82,7 +85,12 @@ function App() {
         </ThemeIcon>
       }
     >
-      {storeItems.map(({name},index) =><List.Item key={index}>{name}</List.Item>)}
+      {basketItems.map(({name, count},index) =>
+      <List.Item key={index}>
+        <Group><div>{name}</div> 
+          <Badge>{count}</Badge>
+        </Group>
+      </List.Item>)}
       
       </List>}
     </Drawer>
