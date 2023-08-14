@@ -6,31 +6,37 @@ import './App.css';
 import Card from "./components/Card";
 
 const storeItems= [{
+  id: 100,
   name: "Sandalye",
   src: "chair",
   price:250
 },
 {
+  id: 101,
   name: "Askı",
   src: "hanger",
   price:20
 },
 {
+  id: 102,
   name: "Masa Lambası",
   src: "lamp",
   price:125
 },
 {
+  id: 103,
   name: "Dekoratif Tabak",
   src: "plate",
   price:180
 },
 {
+  id: 104,
   name: "Dekoratif Heykel",
   src: "statue",
   price:65
 },
 {
+  id: 105,
   name: "Şarap Bardağı",
   src: "wineglass",
   price:40
@@ -39,16 +45,30 @@ const storeItems= [{
 
 
 
+
+
 function App() {
-  let [opened, setOpened] = useState(false);
-  let [basketItems,setBasketItems] = useState([]);
+
+  let [opened, setOpened] = useState(false);   
+  let [basketItems,setBasketItems] = useState([]);  
   let [searchValue, setSearchValue] = useState(""); 
-  let filteredItems = storeItems.filter((item) => item.name.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0);
-  let addToBasket = ({name}) => {
-    setBasketItems([...basketItems, {name, count: 1}])
+  let filteredItems = storeItems.filter((item) => item.name.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0);  
+  let addToBasket = ({id, name}) => {
+    let basketIndex = basketItems.findIndex(item => item.id === id);
+    if(basketIndex >= 0){
+      let _basketItems = [...basketItems];
+      _basketItems[basketIndex].count+=1;
+      setBasketItems(_basketItems);
+    }
+    else{
+      setBasketItems([...basketItems, {id, name, count: 1}])
+    }
+    
   }
 
-  return (
+
+
+return (
 <Container className="App">
   <Group align="end">
     <Input.Wrapper label="Arama">
@@ -62,9 +82,9 @@ function App() {
     </Indicator>
     </Group>
     <SimpleGrid cols={3} className= "Store">
-      {filteredItems.map(({name, src}) =>{
+      {filteredItems.map(({id, name, src}) =>{
         return <Card key={name} name={name} src={src} 
-        onAdd={() => addToBasket({name})}
+        onAdd={() => addToBasket({id, name})}
         />;
       })}
     </SimpleGrid >
