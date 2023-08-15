@@ -1,4 +1,4 @@
-import { Card, Image, Text, Button, Group } from '@mantine/core';
+import { Card, Image, Text, Button, Group} from '@mantine/core';
 const CardComponent = ({name, src, onAdd}) =>{
     return( 
         <Card shadow="sm" padding="lg" radius="md" withBorder>
